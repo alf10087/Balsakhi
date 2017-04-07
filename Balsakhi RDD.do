@@ -1,6 +1,14 @@
 use "C:\Users\ajr3347\Desktop\Balsakhi_RD_Data.dta" , clear
 
+Drop if balsakhi==0 & test0<=20
+gen force = test0 - 20
+gen interaction = force * balsakhi 
+gen balnobals = cond(bal == 1 & balsakhi==0, 1, 0)
+regress test1 force balsakhi interaction if test0 <= 80 & test0 >= -20 
 
+regress test1 force balsakhi interaction if test0 <= 80 & test0 >= -20 
+regress test1 force balsakhi interaction if test0 <= 80 & test0 >= -20 & bal == 1
+regress test1 force balsakhi interaction if test0 <= 80 & test0 >= -20 & (balnobals == 0 | balsakhi == 1)
 
 * 1. Sharp RDD tau estimation
 
